@@ -1,0 +1,1 @@
+Implementation of NPuzzle using A* algorithm
