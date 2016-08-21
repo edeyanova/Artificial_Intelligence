@@ -104,12 +104,6 @@ public class KNN {
 				}
 			}
 		}
-//		for (int i = 0; i < counts.length; i++) 
-//			System.out.println(counts[i]);
-//
-//			for (int i = 0; i < uniqueValues.length; i++)
-//				System.out.println(uniqueValues[i]);
-
 			//returns the maximum repeated value from the classes; the most repeated class
 			int max = counts[0];
 			for (int counter = 1; counter < counts.length; counter++) {
@@ -143,7 +137,6 @@ public class KNN {
 				//we have multiple majority classes
 				//create an array with a size of freq
 				int[] ix = new int[freq];
-//				System.out.println("Multiple majority classes: " + freq + "classes");
 				int ixi = 0;
 				//add the indexes of max in the counts array
 				for (int counter = 0; counter < counts.length; counter++) {
@@ -152,13 +145,9 @@ public class KNN {
 						ixi++;
 					}
 				}
-//				for (int counter = 0; counter < ix.length; counter++)
-//					System.out.println("class index" + ix[counter]);
-
 				//choose one max class by random
 				Random generator = new Random();
 				int rIndex = generator.nextInt(ix.length);
-//				System.out.println("Random index" + rIndex);
 				int nIndex = ix[rIndex];
 				return uniqueValues[nIndex];
 			}
@@ -179,11 +168,6 @@ public class KNN {
 		Collections.sort(resultList, new DistanceComparator());
 		String[] ss = new String[k];
 		for(int x=0; x<k; x++) {
-			//the name and the distance of each row to the point k
-//			System.out.println(resultList.get(x).getKindName()+ " ..... " + 
-//		resultList.get(x).getDistance());
-			
-			//adds each name to an array 
 			ss[x] = resultList.get(x).getKindName();
 		}
 		String majClass = KNN.findMajorityClass(ss);
@@ -199,7 +183,6 @@ public class KNN {
 					k);
 		}
 		return majorClasses;
-		//returns the array of elements
 	}
 	
 	public static int getNumberOfCorrectClassifiedData(String[] data, List<Kind> testData){
@@ -218,40 +201,6 @@ public class KNN {
 	}
 
 	public static void main(String[] args) {
-		
-//		int k=5;
-//		List<Kind> kindList = getInstances("C:\\Program Files\\Weka-3-6\\data\\iris.arff");
-//		List<Result> resultList = new ArrayList<Result>();
-		
-//		for(int i=0; i<50; i++) {
-//			kindList.add(new Kind(instances[i], "Iris-setosa"));
-//		}
-//		for(int i = 50; i < 100; i++) {
-//			kindList.add(new Kind(instances[i], "Iris-versicolor"));
-//		}
-//		
-//		for(int i = 100; i < 150; i++) {
-//			kindList.add(new Kind(instances[i], "Iris-virginica"));
-//		}
-//		double[] query = {0.65, 0.78, 0.21, 0.29};
-//		for(Kind kind : kindList) {
-//			double dist = 0.0;
-//			for(int j=0; j < kind.kindAttributes.length; j++) {
-//				dist+=Math.pow(kind.kindAttributes[j] - query[j], 2 );
-//			}
-//			double distance = Math.sqrt(dist);
-//			resultList.add(new Result(distance, kind.kindName));
-//		}
-//		Collections.sort(resultList, new DistanceComparator());
-//		String[] ss = new String[k];
-//		for(int x=0; x<k; x++) {
-//			System.out.println(resultList.get(x).kindName+ " ..... " + resultList.get(x).distance);
-//			ss[x] = resultList.get(x).kindName;
-//		}
-//		String majClass = findMajorityClass(ss);
-//		System.out.println("Class of new instance is: " + majClass);
-		
-		
 		int k=5;
 		int percent = 5;
 		List<Kind> kindList = KNN.getInstances("C:\\Program Files\\Weka-3-6\\data\\iris.arff");
@@ -262,8 +211,6 @@ public class KNN {
 		List<Kind> trainData = KNN.getTrainData(percent, kindList);
 		List<Kind> testData = KNN.getTestData(percent, kindList);
 		
-		//izpolzva elemntite na testdata za da vidi kum koi klas prinadleji
-		//data - names only
 		String[] data = KNN.test(testData, trainData, k);
 		double accuracy = KNN.calculateAccuracy(data, testData);
 		
@@ -275,7 +222,6 @@ public class KNN {
 	}
 	
 	static class Kind {
-		//the array of values
 		double[] kindAttributes;
 		String kindName;//which is the class
 		public Kind(double[] kindAttributes, String kindName) {
@@ -327,7 +273,6 @@ public class KNN {
 	
 	static class DistanceComparator implements Comparator<Result> {
 
-		//we compare two instances of class Result
 		@Override
 		public int compare(Result a, Result b) {
 			return a.distance < b.distance ? -1 : a.distance == b.distance ? 0 : 1;
